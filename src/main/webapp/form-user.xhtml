@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+		<!-- FORM -->
+		<h:form class="card-form">
+			<!-- CARD -->
+			<p:card style="width: 25em">
+				<f:facet name="title">
+Cadastro de usuários
+</f:facet>
+				<p:messages id="messages">
+					<p:autoUpdate />
+				</p:messages>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome" for="name" />
+					<p:inputText id="name" required="true"
+						value="#{userBean.user.name}">
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					<p:outputLabel value="Data de nascimento" for="dtNasc" />
+					<p:datePicker pattern="MM/dd/yyyy" required="true" id="dtNasc"
+						value="#{userBean.user.dtNasc}">
+						<f:ajax event="blur" render="messages" />
+					</p:datePicker>
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText id="email" validatorMessage="Email inválido" required="true"
+						value="#{userBean.user.email}">
+						<f:validateRegex
+        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					<p:outputLabel value="Senha" for="senha" />
+					<p:password required="true" id="senha" feedback="true"
+						value="#{userBean.user.senha}">
+						<f:validateLength minimum="7" />
+						<f:ajax event="blur" render="messages" />
+					</p:password>
+					<f:facet name="footer">
+						<p:commandButton icon="pi pi-check" styleClass="ui-button-success"  value="Cadastrar"
+							action="#{userBean.save}" />
+						<p:commandButton icon="pi pi-times" value="Cancelar"
+							styleClass="ui-button-secondary" style="margin-left: .5em" />
+					</f:facet>
+				</h:panelGrid>
+			</p:card>
+			<!-- CARD -->
+		</h:form>
+		<!-- FORM -->
+	</ui:define>
+</ui:composition>
+</html>
